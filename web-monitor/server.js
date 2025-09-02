@@ -22,7 +22,7 @@ const CONFIG = {
   TOLERANCE: parseFloat(process.env.TOLERANCE || "0.05"),
   REFRESH_INTERVAL: parseInt(process.env.REFRESH_INTERVAL || "20"),
   RPC_URL: process.env.ARB_RPC_URL || "https://arb1.arbitrum.io/rpc",
-  PORT: process.env.PORT || 3000
+  PORT: parseInt(process.env.PORT) || 3000
 };
 
 // ThinLever ABI (only what we need)
@@ -144,8 +144,8 @@ setInterval(async () => {
   }
 }, CONFIG.REFRESH_INTERVAL * 1000);
 
-server.listen(CONFIG.PORT, () => {
-  console.log(`ThinLever Monitor running on http://localhost:${CONFIG.PORT}`);
+server.listen(CONFIG.PORT, '0.0.0.0', () => {
+  console.log(`ThinLever Monitor running on http://0.0.0.0:${CONFIG.PORT}`);
   console.log(`Monitoring contract: ${CONFIG.THINLEVER_ADDRESS}`);
   console.log(`Target HF: ${CONFIG.TARGET_HF} ± ${CONFIG.TOLERANCE}`);
 });
