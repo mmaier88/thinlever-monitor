@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThinLever V5 Monitor</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚡ ThinLever V5 Position Monitor</h1>
+            <div class="connection-status" id="connectionStatus">
+                <span class="status-dot"></span>
+                <span class="status-text">Connecting...</span>
+            </div>
+        </header>
+
+        <div class="info-bar">
+            <div class="info-item">
+                <span class="label">Contract:</span>
+                <span class="value mono" id="contractAddress">--</span>
+            </div>
+            <div class="info-item">
+                <span class="label">Last Update:</span>
+                <span class="value" id="lastUpdate">--</span>
+            </div>
+        </div>
+
+        <!-- Health Factor Section -->
+        <div class="card">
+            <h2>📊 Health Factor</h2>
+            <div class="metric-grid">
+                <div class="metric">
+                    <span class="metric-label">Current</span>
+                    <span class="metric-value large" id="currentHF">--</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Target</span>
+                    <span class="metric-value" id="targetHF">--</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Range</span>
+                    <span class="metric-value small" id="hfRange">--</span>
+                </div>
+            </div>
+            
+            <div class="hf-bar-container">
+                <div class="hf-bar">
+                    <div class="hf-range" id="hfRangeBar"></div>
+                    <div class="hf-target" id="hfTargetLine"></div>
+                    <div class="hf-current" id="hfCurrentMarker"></div>
+                </div>
+                <div class="hf-scale">
+                    <span>1.0</span>
+                    <span>1.5</span>
+                    <span>2.0</span>
+                </div>
+            </div>
+            
+            <div class="action-indicator" id="actionIndicator">
+                <span class="action-icon">--</span>
+                <span class="action-text">Loading...</span>
+            </div>
+        </div>
+
+        <!-- Position Metrics -->
+        <div class="card">
+            <h2>💰 Position Metrics</h2>
+            <div class="metrics-table">
+                <div class="table-row">
+                    <span class="table-label">Collateral</span>
+                    <span class="table-value positive" id="collateral">--</span>
+                </div>
+                <div class="table-row">
+                    <span class="table-label">Debt</span>
+                    <span class="table-value negative" id="debt">--</span>
+                </div>
+                <div class="table-row highlight">
+                    <span class="table-label">Net Value</span>
+                    <span class="table-value" id="netValue">--</span>
+                </div>
+                <div class="table-row">
+                    <span class="table-label">Available to Borrow</span>
+                    <span class="table-value muted" id="availableBorrow">--</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leverage -->
+        <div class="card">
+            <h2>🎚️ Leverage</h2>
+            <div class="leverage-display">
+                <span class="leverage-value" id="leverageValue">--</span>
+                <div class="leverage-bar-container">
+                    <div class="leverage-bar" id="leverageBar"></div>
+                </div>
+                <span class="leverage-util" id="utilization">-- utilization</span>
+            </div>
+        </div>
+
+        <!-- Status -->
+        <div class="card">
+            <h2>🚦 Status</h2>
+            <div class="status-grid">
+                <div class="status-item" id="riskStatus">
+                    <span class="status-badge">--</span>
+                </div>
+                <div class="status-item" id="balanceStatus">
+                    <span class="status-badge">--</span>
+                </div>
+                <div class="status-item" id="liquidationWarning" style="display: none;">
+                    <span class="status-badge warning">⚠️ NEAR LIQUIDATION</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Auto-refresh indicator -->
+        <div class="refresh-indicator">
+            <div class="refresh-progress" id="refreshProgress"></div>
+            <span class="refresh-text">Auto-refresh every <span id="refreshInterval">20</span>s</span>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

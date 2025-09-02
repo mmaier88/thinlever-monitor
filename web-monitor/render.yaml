@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: thinlever-monitor
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: ARB_RPC_URL
+        value: https://arb1.arbitrum.io/rpc
+      - key: THINLEVER_ADDRESS
+        value: 0x18D8B7045BbBC2163FF0270b6e4cF8F8Db9624f5
+      - key: TARGET_HF
+        value: "1.25"
+      - key: TOLERANCE
+        value: "0.05"
+      - key: REFRESH_INTERVAL
+        value: "20"
+      - key: PORT
+        value: 10000  # Render uses port 10000 by default
